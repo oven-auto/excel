@@ -2,26 +2,29 @@
 
 namespace App\Jobs;
 
+use App\Imports\ClientImport;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\Cache;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ImportExcelJob implements ShouldQueue
 {
     use Queueable;
 
-    /**
-     * Create a new job instance.
-     */
-    public function __construct()
+    public function __construct(
+        private string $path
+    )
     {
-        //
+        
     }
 
-    /**
-     * Execute the job.
-     */
+    
+    
     public function handle(): void
     {
-        //
+        Cache::set('excel_row', 0);
+
+        Excel::import(new ClientImport, $this->path, 'public');
     }
 }
