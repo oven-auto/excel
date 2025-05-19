@@ -9,6 +9,8 @@ class ExcelController extends Controller
 {
     public function index(ExcelRequest $request)
     {
+        $file = $request->validated()['file'];
 
+        dd($file);
     }
 }
