@@ -24,3 +24,5 @@ Route::prefix('auth')->group(function(){
 
 
 Route::post('excel', [ExcelController::class, 'index'])->middleware('auth:sanctum');
+
+Route::get('excel', [ExcelController::class, 'list']);
