@@ -2,12 +2,12 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 Class LogImport
 {
     public static function write(array $messages)
     {
-        File::disk('local')->put('result.txt', join(PHP_EOL, $messages));
+        Storage::disk('local')->put('result.txt', join(PHP_EOL, $messages));
     }
 }
