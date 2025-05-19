@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Excel\ExcelRequest;
 use App\Imports\ClientImport;
 use App\Models\Client;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ExcelController extends Controller
@@ -13,10 +14,10 @@ class ExcelController extends Controller
     public function index(ExcelRequest $request)
     {
         Client::truncate();
-        
-        $file = $request->validated()['file'];
 
-        Excel::import(new ClientImport, $file);
+        $file = Storage::disk('public')->put('files/', $request->validated()['file']);
+       
+        Excel::import(new ClientImport, $file, 'public');
     }
 
 
